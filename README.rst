@@ -5,7 +5,7 @@ clf - Command line tool to search snippets on Commandlinefu.com
 
 **Example 1**
 
-::
+.. code-block:: shell
 
     $ clf python server
 
@@ -26,7 +26,7 @@ clf - Command line tool to search snippets on Commandlinefu.com
 
 **Example 2**
 
-::
+.. code-block:: shell
 
     $ clf recursive line count
 
