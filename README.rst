@@ -78,7 +78,7 @@ Usage
 Notes
 -----
 
-- You can set the CLF_COLOR environment variable to enable to colorized output by default.
+- You can set the CLF_COLOR environment variable to enable the colorized output by default.
 
 Author
 ------
