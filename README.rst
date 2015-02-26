@@ -75,6 +75,11 @@ Usage
       clf python server
       clf --browse --order=date
 
+Notes
+-----
+
+- You can set the CLF_COLOR environment variable to enable to colorized output by default.
+
 Author
 ------
 

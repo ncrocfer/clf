@@ -28,6 +28,7 @@ Examples:
 """
 
 from docopt import docopt
+import os
 from pygments import highlight
 from pygments.lexers.shell import BashLexer
 from pygments.formatters import TerminalFormatter
@@ -50,7 +51,7 @@ def run():
         commands = f.search(arguments['<keyword>'])
 
     for command in commands:
-        if arguments['--color']:
+        if (arguments['--color']) or (os.getenv('CLF_COLOR')):
             output = '{}# {}{}\n'.format(BLUE, command.summary, END)
             output += highlight(command.command,
                                 BashLexer(),
