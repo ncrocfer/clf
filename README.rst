@@ -1,6 +1,18 @@
 clf - Command line tool to search snippets on Commandlinefu.com
 ===============================================================
 
+.. image:: https://pypip.in/version/clf/badge.svg
+    :target: https://pypi.python.org/pypi/clf/
+    :alt: Latest Version
+
+.. image:: https://pypip.in/download/clf/badge.svg
+    :target: https://pypi.python.org/pypi//clf/
+    :alt: Downloads
+
+.. image:: https://pypip.in/license/clf/badge.svg
+    :target: https://pypi.python.org/pypi/clf/
+    :alt: License
+
 `Commandlinefu.com <http://www.commandlinefu.com/>`_ is the place to record awesome command-line snippets. This tool allows you to search and view the results into your terminal.
 
 **Example 1**
@@ -79,8 +91,3 @@ Notes
 -----
 
 - You can set the CLF_COLOR environment variable to enable the colorized output by default.
-
-Author
-------
-
--  Nicolas Crocfer (`@ncrocfer <http://twitter.com/ncrocfer>`_)
