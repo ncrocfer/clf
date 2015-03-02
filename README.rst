@@ -1,6 +1,9 @@
 clf - Command line tool to search snippets on Commandlinefu.com
 ===============================================================
 
+.. image:: https://travis-ci.org/ncrocfer/clf.svg?branch=master
+    :target: https://travis-ci.org/ncrocfer/clf
+
 .. image:: https://pypip.in/version/clf/badge.svg
     :target: https://pypi.python.org/pypi/clf/
     :alt: Latest Version
@@ -8,10 +11,6 @@ clf - Command line tool to search snippets on Commandlinefu.com
 .. image:: https://pypip.in/download/clf/badge.svg
     :target: https://pypi.python.org/pypi//clf/
     :alt: Downloads
-
-.. image:: https://pypip.in/license/clf/badge.svg
-    :target: https://pypi.python.org/pypi/clf/
-    :alt: License
 
 `Commandlinefu.com <http://www.commandlinefu.com/>`_ is the place to record awesome command-line snippets. This tool allows you to search and view the results into your terminal.
 
