@@ -36,6 +36,7 @@ from pygments.formatters import TerminalFormatter
 from clf.constants import VERSION, BLUE, END
 from clf.api import Clf
 
+__all__ = ['Clf']
 
 def run():
     arguments = docopt(__doc__, version=VERSION)

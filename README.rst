@@ -90,3 +90,12 @@ Notes
 -----
 
 - You can set the CLF_COLOR environment variable to enable the colorized output by default.
+- You can import the :code:`clf` module and use it in your own scripts :
+
+::
+
+    >>> from clf import Clf
+    >>> c = Clf()
+    >>> for cmd in c.browse():
+    >>>     print(cmd.summary)
+    >>>     print(cmd.command)
