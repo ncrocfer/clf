@@ -17,13 +17,15 @@ Usage:
 Options:
   -h, --help     Show this help.
   -v, --version  Show version.
-  -c, --color    Enable colorized output
+  -c, --color    Enable colorized output.
   -b, --browse   Browse the Commandlinefu.com archive.
-  --order=ORDER  The order output (votes|date) [default: votes]
+  --order=ORDER  The order output (votes|date) [default: votes].
+  --proxy=PROXY  The proxy used to perform requests.
 
 Examples:
   clf tar
   clf python server
+  clf tar --proxy=http://127.0.0.1:8080
   clf --browse --order=date
 """
 
@@ -38,11 +40,13 @@ from clf.api import Clf
 
 __all__ = ['Clf']
 
+
 def run():
     arguments = docopt(__doc__, version=VERSION)
 
     f = Clf(format="json",
-            order=arguments['--order'])
+            order=arguments['--order'],
+            proxy=arguments['--proxy'])
 
     if arguments['--browse']:
         commands = f.browse()

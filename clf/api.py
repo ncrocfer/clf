@@ -7,6 +7,16 @@ This module implements the Commandlinefu.com API
 import requests
 import base64
 
+try:
+    from urllib import getproxies
+except ImportError:
+    from urllib.request import getproxies
+
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib import parse as urlparse
+
 from clf.command import Command
 from clf.constants import URL
 from clf.exceptions import (FormatException, OrderException,
@@ -15,12 +25,13 @@ from clf.exceptions import (FormatException, OrderException,
 
 class Clf(object):
 
-    def __init__(self, format="json", order="votes"):
+    def __init__(self, format="json", order="votes", proxy=None):
         if format not in ['json', 'plaintext', 'rss']:
             raise FormatException('The format is invalid')
 
         self.format = format
         self.url = URL
+        self.proxy = proxy
 
         if order == 'votes':
             self.order = 'sort-by-votes'
@@ -57,9 +68,22 @@ class Clf(object):
                                                  self.order,
                                                  self.format)
 
+    def _get_proxies(self):
+        proxies = getproxies()
+
+        proxy = {}
+        if self.proxy:
+            parsed_proxy = urlparse(self.proxy)
+            proxy[parsed_proxy.scheme] = parsed_proxy.geturl()
+
+        proxies.update(proxy)
+        return proxies
+
     def get(self, url):
+        proxies = self._get_proxies()
+
         try:
-            r = requests.get(url)
+            r = requests.get(url, proxies=proxies)
         except requests.exceptions.ConnectionError:
             raise RequestsException("The connection is not available")
 
