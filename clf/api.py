@@ -79,7 +79,7 @@ class Clf(object):
         proxies.update(proxy)
         return proxies
 
-    def get(self, url):
+    def _get(self, url):
         proxies = self._get_proxies()
 
         try:
@@ -89,19 +89,7 @@ class Clf(object):
 
         return r.json()
 
-    def browse(self):
-        commands = self.get(self._prepare_browse_url())
-        return self.cmd_generator(commands)
-
-    def command(self, cmd):
-        commands = self.get(self._prepare_command_url(cmd))
-        return self.cmd_generator(commands)
-
-    def search(self, *args):
-        commands = self.get(self._prepare_search_url(*args))
-        return self.cmd_generator(commands)
-
-    def cmd_generator(self, commands):
+    def _cmd_generator(self, commands):
         for command in commands:
             yield Command(
                 command['id'],
@@ -110,3 +98,15 @@ class Clf(object):
                 command['votes'],
                 command['url']
             )
+
+    def browse(self):
+        commands = self._get(self._prepare_browse_url())
+        return self._cmd_generator(commands)
+
+    def command(self, cmd):
+        commands = self._get(self._prepare_command_url(cmd))
+        return self._cmd_generator(commands)
+
+    def search(self, *args):
+        commands = self._get(self._prepare_search_url(*args))
+        return self._cmd_generator(commands)
