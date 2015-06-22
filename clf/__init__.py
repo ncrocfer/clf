@@ -59,7 +59,7 @@ def run():
         def get_output(command):
             detail = highlight(command.command,
                                BashLexer(), TerminalFormatter(bg="dark"))
-            return '{}# {}{}\n{}\n'.format(BLUE, command.summary, END, detail)
+            return '{}# {}{}\n{}'.format(BLUE, command.summary, END, detail)
     else:
         def get_output(command):
             return '# {}\n{}\n'.format(command.summary, command.command)
