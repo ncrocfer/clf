@@ -55,17 +55,17 @@ def run():
     elif arguments['<keyword>']:
         commands = f.search(arguments['<keyword>'])
 
-    for command in commands:
-        if (arguments['--color']) or (os.getenv('CLF_COLOR')):
-            output = '{}# {}{}\n'.format(BLUE, command.summary, END)
-            output += highlight(command.command,
-                                BashLexer(),
-                                TerminalFormatter(bg="dark"))
-        else:
-            output = '# {}\n'.format(command.summary)
-            output += command.command + "\n"
+    if (arguments['--color']) or (os.getenv('CLF_COLOR')):
+        def get_output(command):
+            detail = highlight(command.command,
+                               BashLexer(), TerminalFormatter(bg="dark"))
+            return '{}# {}{}\n{}\n'.format(BLUE, command.summary, END, detail)
+    else:
+        def get_output(command):
+            return '# {}\n{}\n'.format(command.summary, command.command)
 
-        print(output)
+    for command in commands:
+        print(get_output(command))
 
 if __name__ == '__main__':
     run()
