@@ -87,7 +87,10 @@ class Clf(object):
         except requests.exceptions.ConnectionError:
             raise RequestsException("The connection is not available")
 
-        return r.json()
+        try:
+            return r.json()
+        except ValueError:
+            return []
 
     def _cmd_generator(self, commands):
         for command in commands:
