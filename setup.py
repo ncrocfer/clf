@@ -12,7 +12,7 @@ readme = open('README.rst').read()
 
 setup(
     name="clf",
-    version="0.5.6",
+    version="0.5.7",
     url='http://github.com/ncrocfer/clf',
     author='Nicolas Crocfer',
     author_email='ncrocfer@gmail.com',
