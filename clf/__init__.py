@@ -19,6 +19,7 @@ Options:
   -v, --version  Show version.
   -c, --color    Enable colorized output.
   -b, --browse   Browse the Commandlinefu.com archive.
+  -n NUMBER      Show the n first snippets [default: 25].
   --order=ORDER  The order output (votes|date) [default: votes].
   --proxy=PROXY  The proxy used to perform requests.
 
@@ -64,7 +65,15 @@ def run():
         def get_output(command):
             return '# {}\n{}\n'.format(command.summary, command.command)
 
-    for command in commands:
+    try:
+        limit = int(arguments['-n'])
+    except ValueError:
+        limit = 25
+
+    for idx, command in enumerate(commands):
+        if limit == idx:
+            break
+
         print(get_output(command))
 
 if __name__ == '__main__':

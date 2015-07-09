@@ -72,6 +72,7 @@ Usage
       -v, --version  Show version.
       -c, --color    Enable colorized output.
       -b, --browse   Browse the Commandlinefu.com archive.
+      -n NUMBER      Show the n first snippets [default: 25].
       --order=ORDER  The order output (votes|date) [default: votes].
       --proxy=PROXY  The proxy used to perform requests.
 
