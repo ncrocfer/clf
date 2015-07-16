@@ -25,9 +25,6 @@ clf - Command line tool to search snippets on Commandlinefu.com
       # put current directory in LAN quickly
       python -m SimpleHTTPServer
 
-      # An alternative to: python -m SimpleHTTPServer for Arch Linux
-      python3 -m http.server
-
 **Example 2**
 
 .. code-block:: shell
@@ -63,35 +60,49 @@ Usage
     Command line tool to search snippets on Commandlinefu.com
 
     Usage:
-      clf --browse [options]
+      clf [options]
       clf <command> [options]
       clf <keyword> <keyword>... [options]
-
+    
     Options:
-      -h, --help     Show this help.
-      -v, --version  Show version.
-      -c, --color    Enable colorized output.
-      -b, --browse   Browse the Commandlinefu.com archive.
-      -n NUMBER      Show the n first snippets [default: 25].
-      --order=ORDER  The order output (votes|date) [default: votes].
-      --proxy=PROXY  The proxy used to perform requests.
-
+      -h, --help      Show this help.
+      -v, --version   Show version.
+      -c, --color     Enable colorized output.
+      -i, --id        Show the snippets id.
+      -n NUMBER       Show the n first snippets [default: 25].
+      --order=ORDER   The order output (votes|date) [default: votes].
+      --proxy=PROXY   The proxy used to perform requests.
+    
     Examples:
       clf tar
       clf python server
       clf tar --proxy=http://127.0.0.1:8080
-      clf --browse --order=date
+      clf --order=date -n 3
 
 Notes
 -----
 
-- You can set the CLF_COLOR environment variable to enable the colorized output by default.
-- You can import the :code:`clf` module and use it in your own scripts :
+**Enable the colorized output**
+
+You can set the :code:`CLF_COLOR` environment variable to enable the colorized output by default :
 
 ::
 
-    >>> from clf import Clf
-    >>> c = Clf()
-    >>> for cmd in c.browse():
-    >>>     print(cmd.summary)
-    >>>     print(cmd.command)
+    $ export CLF_COLOR=1
+
+**Use clf in your scripts**
+
+You can import the :code:`clf` module and use it in your own scripts :
+
+.. code-block:: python
+
+    #!/usr/bin/env python
+
+    from clf import Clf
+
+    c = Clf()
+    for cmd in c.browse():
+        print("#{}\n{}\n".format(
+            cmd.summary,
+            cmd.command
+        ))
