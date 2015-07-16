@@ -15,13 +15,14 @@ Usage:
   clf <keyword> <keyword>... [options]
 
 Options:
-  -h, --help     Show this help.
-  -v, --version  Show version.
-  -c, --color    Enable colorized output.
-  -b, --browse   Browse the Commandlinefu.com archive.
-  -n NUMBER      Show the n first snippets [default: 25].
-  --order=ORDER  The order output (votes|date) [default: votes].
-  --proxy=PROXY  The proxy used to perform requests.
+  -h, --help      Show this help.
+  -v, --version   Show version.
+  -c, --color     Enable colorized output.
+  -b, --browse    Browse the Commandlinefu.com archive.
+  -i, --id        Show the snippets id.
+  -n NUMBER       Show the n first snippets [default: 25].
+  --order=ORDER   The order output (votes|date) [default: votes].
+  --proxy=PROXY   The proxy used to perform requests.
 
 Examples:
   clf tar
@@ -49,6 +50,7 @@ def run():
             order=arguments['--order'],
             proxy=arguments['--proxy'])
 
+    # Use the API to retrieve the snippets list
     if arguments['--browse']:
         commands = f.browse()
     elif arguments['<command>']:
@@ -56,20 +58,31 @@ def run():
     elif arguments['<keyword>']:
         commands = f.search(arguments['<keyword>'])
 
+    # Show the snippets id
+    if arguments['--id']:
+        sid = lambda c: '({})'.format(c.id)
+    else:
+        sid = lambda c: ''
+
+    # Display in colors
     if (arguments['--color']) or (os.getenv('CLF_COLOR')):
         def get_output(command):
             detail = highlight(command.command,
                                BashLexer(), TerminalFormatter(bg="dark"))
-            return '{}# {}{}\n{}'.format(BLUE, command.summary, END, detail)
+            return '{}#{} {}{}\n{}'.format(BLUE, sid(command),
+                                           command.summary, END, detail)
     else:
         def get_output(command):
-            return '# {}\n{}\n'.format(command.summary, command.command)
+            return '#{} {}\n{}\n'.format(sid(command),
+                                         command.summary, command.command)
 
+    # Limit the number of snippets
     try:
         limit = int(arguments['-n'])
     except ValueError:
         limit = 25
 
+    # Display the snippets
     for idx, command in enumerate(commands):
         if limit == idx:
             break
