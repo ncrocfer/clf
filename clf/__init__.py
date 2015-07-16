@@ -10,7 +10,7 @@
 Command line tool to search snippets on Commandlinefu.com
 
 Usage:
-  clf --browse [options]
+  clf [options]
   clf <command> [options]
   clf <keyword> <keyword>... [options]
 
@@ -18,7 +18,6 @@ Options:
   -h, --help      Show this help.
   -v, --version   Show version.
   -c, --color     Enable colorized output.
-  -b, --browse    Browse the Commandlinefu.com archive.
   -i, --id        Show the snippets id.
   -n NUMBER       Show the n first snippets [default: 25].
   --order=ORDER   The order output (votes|date) [default: votes].
@@ -28,7 +27,7 @@ Examples:
   clf tar
   clf python server
   clf tar --proxy=http://127.0.0.1:8080
-  clf --browse --order=date
+  clf --order=date -n 3
 """
 
 from docopt import docopt
@@ -51,12 +50,12 @@ def run():
             proxy=arguments['--proxy'])
 
     # Use the API to retrieve the snippets list
-    if arguments['--browse']:
-        commands = f.browse()
-    elif arguments['<command>']:
+    if arguments['<command>']:
         commands = f.command(arguments['<command>'])
     elif arguments['<keyword>']:
         commands = f.search(arguments['<keyword>'])
+    else:
+        commands = f.browse()
 
     # Show the snippets id
     if arguments['--id']:
