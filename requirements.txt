@@ -1,3 +1,5 @@
 Pygments>=1.5
 docopt>=0.6.0
 requests>=2.3.0
+lxml>=3.4.4
+PyYAML>=3.11

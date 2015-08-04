@@ -19,6 +19,8 @@ Options:
   -v, --version   Show version.
   -c, --color     Enable colorized output.
   -i, --id        Show the snippets id.
+  -l, --local     Read the local snippets.
+  -s ID           Save the snippet locally.
   -n NUMBER       Show the n first snippets [default: 25].
   --order=ORDER   The order output (votes|date) [default: votes].
   --proxy=PROXY   The proxy used to perform requests.
@@ -38,6 +40,8 @@ from pygments.formatters import TerminalFormatter
 
 from clf.constants import VERSION, BLUE, END
 from clf.api import Clf
+from clf.utils import save_snippet, get_local_snippets
+from clf.exceptions import RequestsException, OSException, DuplicateException
 
 __all__ = ['Clf']
 
@@ -56,6 +60,21 @@ def run():
         commands = f.search(arguments['<keyword>'])
     else:
         commands = f.browse()
+
+    # Save the snippet locally
+    if arguments['-s']:
+        try:
+            snippet = save_snippet(arguments['-s'],
+                                   f._get_proxies())
+        except(RequestsException, OSException, DuplicateException) as e:
+            print(e)
+        else:
+            print("The snippet has been successfully saved.")
+        exit()
+
+    # Read the local snippets
+    if arguments['--local']:
+        commands = get_local_snippets()
 
     # Show the snippets id
     if arguments['--id']:

@@ -15,4 +15,11 @@ class Command(object):
         self.url = url
 
     def __repr__(self):
-        return '<Command [id:{}]>'.format(self.id)
+        return "{}(id={}, command={}, summary={}, votes={}, url={})".format(
+            self.__class__.__name__,
+            self.id,
+            self.command,
+            self.summary,
+            self.votes,
+            self.url
+        )

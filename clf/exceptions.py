@@ -19,3 +19,11 @@ class QueryException(Exception):
 
 class RequestsException(Exception):
     """ The request is invalid """
+
+
+class OSException(Exception):
+    """ An OS error has occurred """
+
+
+class DuplicateException(Exception):
+    """ The snippet already exists """
