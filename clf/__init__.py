@@ -53,28 +53,25 @@ def run():
             order=arguments['--order'],
             proxy=arguments['--proxy'])
 
-    # Use the API to retrieve the snippets list
-    if arguments['<command>']:
-        commands = f.command(arguments['<command>'])
-    elif arguments['<keyword>']:
-        commands = f.search(arguments['<keyword>'])
-    else:
-        commands = f.browse()
-
     # Save the snippet locally
     if arguments['-s']:
         try:
-            snippet = save_snippet(arguments['-s'],
-                                   f._get_proxies())
+            snippet = save_snippet(arguments['-s'], f._get_proxies())
         except(RequestsException, OSException, DuplicateException) as e:
             print(e)
         else:
             print("The snippet has been successfully saved.")
         exit()
 
-    # Read the local snippets
+    # Retrieve the snippets list
     if arguments['--local']:
         commands = get_local_snippets()
+    elif arguments['<command>']:
+        commands = f.command(arguments['<command>'])
+    elif arguments['<keyword>']:
+        commands = f.search(arguments['<keyword>'])
+    else:
+        commands = f.browse()
 
     # Show the snippets id
     if arguments['--id']:

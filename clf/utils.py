@@ -38,13 +38,13 @@ def get_snippet(id, proxies):
 
 
 def save_snippet(id, proxies):
-    snippet = get_snippet(id, proxies)
     snippets_file = get_snippets_file()
 
     with open(snippets_file, 'r') as f:
         data = yaml.load(f)
 
         if id not in data:
+            snippet = get_snippet(id, proxies)
             data[id] = snippet
 
             with open(snippets_file, 'w') as f:
