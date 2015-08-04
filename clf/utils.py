@@ -42,6 +42,8 @@ def save_snippet(id, proxies):
 
     with open(snippets_file, 'r') as f:
         data = yaml.load(f)
+        if not data:
+            data = {}
 
         if id not in data:
             snippet = get_snippet(id, proxies)
@@ -74,4 +76,4 @@ def get_local_snippets():
     with open(snippets_file, 'r') as f:
         data = yaml.load(f)
 
-    return data.values()
+    return data.values() if data != None else []
